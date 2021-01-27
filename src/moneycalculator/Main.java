@@ -1,27 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package moneycalculator;
 
-import java.util.ArrayList;
-import java.util.List;
+import moneycalculator.persistence.CurrencyLoader;
+import moneycalculator.persistence.ExchangeRateLoader;
+import moneycalculator.persistence.file.CsvFileCurrencyLoader;
+import moneycalculator.persistence.rest.RestExchangeRateLoader;
 
-/**
- *
- * @author Eva
- */
 public class Main {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        List<Currency> list = new CsvFileCurrencyLoader("currencies.csv").load();
-        for (Currency currency : list) {
-            System.out.println(currency);
-        }
+        CurrencyLoader currencyLoader = new CsvFileCurrencyLoader("currencies.csv");
+        ExchangeRateLoader exchageRateLoader = new RestExchangeRateLoader();
+        
+        MoneyCalculatorFrame moneyCalculatorFrame = new MoneyCalculatorFrame(currencyLoader.currencies());
+        
+        
         
     }
     
